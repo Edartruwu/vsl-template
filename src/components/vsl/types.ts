@@ -28,3 +28,59 @@ export interface VSLFormSchema {
   title?: Record<string, string>;
   description?: Record<string, string>;
 }
+
+export interface VSLTestimonial {
+  quote: string;
+  author: string;
+  role?: string;
+  avatar?: string;
+  result?: string;
+  rating?: number;
+}
+
+export interface VSLFeature {
+  icon?: React.ReactNode;
+  title: string;
+  description: string;
+}
+
+export interface VSLProps {
+  // Video
+  videoUrl?: string;
+  videoPoster?: string;
+
+  // Content
+  badge?: string;
+  headline: string;
+  subheadline?: string;
+
+  // CTA
+  ctaText: string;
+  ctaSubtext?: string;
+  onCtaClick?: () => void;
+
+  // Trust elements
+  trustItems?: string[];
+
+  testimonials?: VSLTestimonial[];
+
+  features?: VSLFeature[];
+
+  // Stats
+  stats?: Array<{
+    value: string;
+    label: string;
+  }>;
+
+  // Urgency
+  urgencyText?: string;
+
+  // Form gating
+  formSchema?: VSLFormSchema;
+  locale?: string;
+  onFormSubmit?: (data: Record<string, string>) => void | Promise<void>;
+  requireForm?: boolean;
+
+  // Styling
+  className?: string;
+}

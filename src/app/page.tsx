@@ -1,74 +1,80 @@
+"use client";
 import { VSL } from "@/components/vsl";
 import { VSLFormSchema } from "@/components/vsl/types";
+import { createLead, CreateLeadInput } from "@/lib/createLead";
+
+const culturaRelojesFormSchema: VSLFormSchema = {
+  title: {
+    es: "Accede al Entrenamiento Exclusivo",
+    en: "Access the Exclusive Training",
+  },
+  description: {
+    es: "Ingresa tus datos para descubrir cómo convertir relojes de lujo en activos rentables",
+    en: "Enter your details to discover how to turn luxury watches into profitable assets",
+  },
+  submitLabel: {
+    es: "Ver Video Ahora",
+    en: "Watch Video Now",
+  },
+  fields: [
+    {
+      name: "name",
+      type: "text",
+      label: { es: "Nombre", en: "First Name" },
+      placeholder: { es: "Tu nombre", en: "Your name" },
+      required: true,
+      validation: { minLength: 2 },
+    },
+    {
+      name: "email",
+      type: "email",
+      label: { es: "Correo Electrónico", en: "Email Address" },
+      placeholder: { es: "tu@correo.com", en: "you@email.com" },
+      required: true,
+    },
+    {
+      name: "phone",
+      type: "tel",
+      label: { es: "WhatsApp", en: "WhatsApp" },
+      placeholder: { es: "+52 55 1234 5678", en: "+1 555 123 4567" },
+      required: true,
+    },
+  ],
+};
 
 export default function Home() {
-  const customFormSchema: VSLFormSchema = {
-    title: {
-      es: "Agenda Tu Llamada Estratégica",
-    },
-    description: {
-      es: "Ingresa tus datos para agendar una llamada uno a uno donde evaluaremos tu situación y te mostraremos si este camino es ideal para ti",
-    },
-    submitLabel: {
-      es: "Agendar Mi Llamada Ahora",
-    },
-    fields: [
-      {
-        name: "firstName",
-        type: "text",
-        label: { es: "Nombre" },
-        placeholder: { es: "Tu nombre" },
-        required: true,
-        validation: { minLength: 2 },
-      },
-      {
-        name: "email",
-        type: "email",
-        label: { es: "Correo Electrónico" },
-        placeholder: { es: "tu@ejemplo.com" },
-        required: true,
-      },
-      {
-        name: "phone",
-        type: "tel",
-        label: { es: "Teléfono" },
-        placeholder: { es: "+34 600 000 000" },
-        required: true,
-      },
-    ],
-  };
-
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-background">
       <VSL
-        badge="Cultura de Relojes"
-        headline="Un Reloj Puede Pagarte Todos Los Meses"
-        subheadline="Descubre cómo personas comunes están aprendiendo a usar relojes de lujo como activos y generando ingresos adicionales. No necesitas ser millonario. Solo necesitas aprender a jugar bien este juego."
+        badge="Masterclass Exclusiva"
+        headline="La habilidad de lujo que genera $3K–$5K por operación con relojes (en 90 días)"
+        subheadline="Descubre el método que personas comunes están usando para generar ingresos con relojes de lujo — sin ser millonario, sin contactos, solo estrategia."
+        videoPoster="/anthony.gif"
         videoUrl="https://aiwtbhauow.ufs.sh/f/ZbekQqR5Eb12l1ix8b7HfXmRnoGUPELv5FIy7J6kNZO3abB4"
-        ctaText="Agendar Mi Llamada Estratégica"
-        ctaSubtext="Habla con Anthony o su equipo en una llamada uno a uno"
-        urgencyText="Plazas limitadas — No dejes pasar esta oportunidad"
-        stats={[
-          { value: "+227%", label: "ROI Promedio" },
-          { value: "48 Horas", label: "Venta Más Rápida" },
-          { value: "$1,150", label: "Ganancia en 1 Semana" },
-          { value: "100%", label: "Casos Reales" },
-        ]}
+        ctaText="Agenda Tu Llamada Ahora"
+        ctaSubtext="Evaluación gratuita de 15 minutos con nuestro equipo"
+        urgencyText="Cupos limitados — Solo aceptamos 10 nuevos miembros por semana"
         trustItems={[
-          "Comunidad privada exclusiva",
-          "Casos reales documentados",
-          "Entrenamiento completo",
-          "Acompañamiento personalizado",
-          "Guías prácticas y plantillas",
-          "Actualizaciones constantes",
+          "Comunidad Privada de Inversionistas",
+          "Acompañamiento Personalizado",
+          "Guías y Plantillas Incluidas",
         ]}
-        socialProof={{
-          text: '"Compré un Rolex Zombie por $19,600 en un AD y lo vendí 48 horas después por $21,000 en nuestro dealer chat." — Mateo Salmón Kaemena',
-          rating: 5,
-        }}
         requireForm={true}
-        formSchema={customFormSchema}
+        formSchema={culturaRelojesFormSchema}
         locale="es"
+        onFormSubmit={async (data: CreateLeadInput) => {
+          await createLead({
+            email: data.email,
+            name: data.name,
+            phone: data.phone,
+          });
+        }}
+        onCtaClick={() => {
+          window.open(
+            "https://calendly.com/anthonypezer/consultoria",
+            "_blank",
+          );
+        }}
       />
     </main>
   );
